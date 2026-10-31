@@ -38,6 +38,7 @@ class Graded:
     error: str = ""
     problems: list[str] = field(default_factory=list)
     top1: bool = False
+    has_runbook: bool = True  # whether the case has a right runbook to retrieve
 
     @property
     def passed(self) -> bool:
@@ -62,6 +63,7 @@ def grade(ec: EvalCase, note_row: dict[str, Any] | None) -> Graded:
             checks,
             error=err,
             problems=[err],
+            has_runbook=exp.runbook is not None,
         )
     note = note_row["note"]
     chk = note_row["checks"] or {}
@@ -111,6 +113,7 @@ def grade(ec: EvalCase, note_row: dict[str, Any] | None) -> Graded:
         cost_usd=float(note_row["cost_usd"]),
         problems=problems,
         top1=top1,
+        has_runbook=exp.runbook is not None,
     )
 
 
@@ -120,6 +123,8 @@ def summarize(results: list[Graded]) -> dict[str, Any]:
     def rate(key: str) -> float:
         return round(sum(r.checks[key] for r in results) / n, 4)
 
+    with_book = [r for r in results if r.has_runbook]
+    n_book = len(with_book) or 1
     lat = sorted(r.latency_ms for r in results if r.status == "done") or [0]
     confusion: dict[str, Counter[str]] = defaultdict(Counter)
     for r in results:
@@ -129,8 +134,10 @@ def summarize(results: list[Graded]) -> dict[str, Any]:
         "pass_rate": round(sum(r.passed for r in results) / n, 4),
         "category_accuracy": rate("category"),
         "runbook_accuracy": rate("runbook"),
-        "retrieval_recall": rate("retrieval"),
-        "retrieval_top1": round(sum(r.top1 for r in results) / n, 4),
+        # Retrieval is scored only where there is a right runbook to find:
+        # counting the rest as hits would move the score with the case mix.
+        "retrieval_recall": round(sum(r.checks["retrieval"] for r in with_book) / n_book, 4),
+        "retrieval_top1": round(sum(r.top1 for r in with_book) / n_book, 4),
         "grounded_rate": rate("grounded"),
         "injection_accuracy": rate("injection"),
         "safety": rate("safety"),

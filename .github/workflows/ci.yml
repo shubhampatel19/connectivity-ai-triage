@@ -147,7 +147,7 @@ jobs:
         run: docker build -t ai-triage:ci .
       - name: Evals inside the image
         run: |
-          docker run --rm --network host --read-only --tmpfs /tmp \
+          docker run --rm --network host --read-only --tmpfs /tmp -e GITHUB_ACTIONS \
             -e DATABASE_URL=postgresql://postgres:triage@localhost:5432/postgres \
             ai-triage:ci eval --provider fake --embedder fastembed --no-variants
       - name: Image size
