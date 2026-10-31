@@ -33,6 +33,9 @@ providers:
 retrieval:
   fastembed:
     retrieval_recall: 0.95
+    # The right runbook ranks first in about 6 cases in 10 (61% on the
+    # first CI run); this catches it getting worse.
+    retrieval_top1: 0.55
   hash:
     retrieval_recall: 0.85
     # How often the right runbook ranks first. The bag-of-words test
