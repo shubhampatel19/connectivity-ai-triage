@@ -153,6 +153,8 @@ async def run(args: argparse.Namespace) -> int:
         "results": [dataclasses.asdict(r) for r in results],
     }
     await asyncio.to_thread(_write, Path(args.out), llm.provider, report, payload)
+    if os.environ.get("GITHUB_ACTIONS"):
+        _annotate(summary, results, meta, failures)
     return 1 if failures else 0
 
 
@@ -164,6 +166,39 @@ def _write(out: Path, provider: str, report: str, payload: dict[str, Any]) -> No
     if path := os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(path, "a") as f:
             f.write(report)
+
+
+def _annotate(
+    summary: dict[str, Any], results: list[score.Graded], meta: dict[str, Any], failures: list[str]
+) -> None:
+    """The headline numbers as a CI annotation: shown on the commit's checks
+    and readable through the API, unlike the job summary and raw logs."""
+
+    def pct(k: str) -> str:
+        return f"{summary[k]:.0%}"
+
+    head = (
+        f"{summary['cases']} runs: pass {pct('pass_rate')}, category {pct('category_accuracy')}, "
+        f"runbook {pct('runbook_accuracy')}, retrieval {pct('retrieval_recall')} (top-1 {pct('retrieval_top1')}), "
+        f"grounded {pct('grounded_rate')}, injection {pct('injection_accuracy')}, safety {pct('safety')}; "
+        f"p95 {summary['latency_p95_ms']} ms, largest prompt {summary['max_input_tokens']} tokens, ${summary['cost_usd']:.4f}"
+    )
+
+    # Workflow commands treat % as an escape in the message, and , and : as
+    # separators in properties such as the title.
+    def data(v: str) -> str:
+        return v.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+    def prop(v: str) -> str:
+        return data(v).replace(":", "%3A").replace(",", "%2C")
+
+    title = prop(f"evals {meta['provider']}/{meta['model']}, {meta['embedder']}")
+    if failures:
+        print(f"::error title={title}::{data(head)} | below threshold: {data('; '.join(failures))}")
+    else:
+        print(f"::notice title={title}::{data(head)}")
+    for r in [r for r in results if not r.passed][:10]:
+        print(f"::warning title={prop('eval ' + r.case)}::{data('; '.join(r.problems)[:900])}")
 
 
 def _thresholds(path: str, provider: str, embedder: str) -> dict[str, float]:
