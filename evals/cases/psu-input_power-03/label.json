@@ -1,0 +1,17 @@
+{
+  "case": "psu-input_power-03",
+  "generator": "bundlegen/1",
+  "seed": 104003,
+  "device_id": "site-b-00090",
+  "site_id": "site-b",
+  "model": "edge-server-e1",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "input_power",
+  "site_wide": true,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 4,
+  "bundle_id": "d45db15cd2bc34249f362f1489729769",
+  "bundle_bytes": 18911
+}

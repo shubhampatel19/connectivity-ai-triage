@@ -1,0 +1,17 @@
+{
+  "case": "disk-disk_wear-03",
+  "generator": "bundlegen/1",
+  "seed": 106003,
+  "device_id": "site-a-00072",
+  "site_id": "site-a",
+  "model": "network-switch-n3",
+  "firmware": "2.4.1",
+  "fault": "disk",
+  "cause": "disk_wear",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "storage.reallocated_sectors",
+  "alerts": 1,
+  "bundle_id": "bab231525dc36ba94c5708fd86b8de72",
+  "bundle_bytes": 19202
+}

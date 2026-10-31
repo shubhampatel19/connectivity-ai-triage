@@ -1,0 +1,17 @@
+{
+  "case": "psu-loose_power_cable-02",
+  "generator": "bundlegen/1",
+  "seed": 105002,
+  "device_id": "site-b-00090",
+  "site_id": "site-b",
+  "model": "edge-server-e1",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "loose_power_cable",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 6,
+  "bundle_id": "ce01ee23a15165459bbdb4a087ae3396",
+  "bundle_bytes": 18955
+}

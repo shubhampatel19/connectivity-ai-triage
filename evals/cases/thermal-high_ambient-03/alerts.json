@@ -1,0 +1,13 @@
+[
+  {
+    "alert_id": "619432f3e058356fc02b1c9645e39a44",
+    "device_id": "site-a-00092",
+    "site_id": "site-a",
+    "code": "thermal.critical",
+    "severity": "critical",
+    "value": 91.26,
+    "message": "cpu_temp=91.3C over fault threshold 90C, fan=7198rpm",
+    "observed_at": "2026-10-02T00:59:54Z",
+    "bundle_id": "fa8386f395c68f8de3e24441b4cd22f3"
+  }
+]

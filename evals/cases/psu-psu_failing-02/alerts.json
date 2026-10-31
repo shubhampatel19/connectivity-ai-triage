@@ -1,0 +1,13 @@
+[
+  {
+    "alert_id": "0a620b770fecbd661d4721bcad33d1b8",
+    "device_id": "site-b-00113",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.783,
+    "message": "PSU1 12V rail at 11.783V, outside +/-0.20V",
+    "observed_at": "2026-10-01T21:08:39Z",
+    "bundle_id": "e37eb17c2931b1ca149ed4c21281e7bd"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "case": "psu-psu_failing-01",
+  "generator": "bundlegen/1",
+  "seed": 103001,
+  "device_id": "site-b-00042",
+  "site_id": "site-b",
+  "model": "network-switch-n3",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "psu_failing",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 2,
+  "bundle_id": "ba2ea45aca416ad5c1605b80114d1253",
+  "bundle_bytes": 18915
+}

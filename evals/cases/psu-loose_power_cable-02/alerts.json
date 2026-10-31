@@ -1,0 +1,63 @@
+[
+  {
+    "alert_id": "9d1c97919cca73ad41c733bf6283b0ba",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.742,
+    "message": "PSU1 12V rail at 11.742V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:00:00Z",
+    "bundle_id": "ce01ee23a15165459bbdb4a087ae3396"
+  },
+  {
+    "alert_id": "27332a9367cf62477be6ae2720526f2c",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.726,
+    "message": "PSU1 12V rail at 11.726V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:00:20Z"
+  },
+  {
+    "alert_id": "a072e7c2d5d72667def0255a4dfcc256",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.749,
+    "message": "PSU1 12V rail at 11.749V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:00:35Z"
+  },
+  {
+    "alert_id": "088816226c07ccb09c2b25efc44c71bd",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.734,
+    "message": "PSU1 12V rail at 11.734V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:00:55Z"
+  },
+  {
+    "alert_id": "23ce748fbc217803c5700d9d75adae80",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.66,
+    "message": "PSU1 12V rail at 11.660V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:01:20Z"
+  },
+  {
+    "alert_id": "757e6d3a2a18f9a5cbbc7a18c43248bb",
+    "device_id": "site-b-00090",
+    "site_id": "site-b",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.78,
+    "message": "PSU1 12V rail at 11.780V, outside +/-0.20V",
+    "observed_at": "2026-10-02T04:01:45Z"
+  }
+]

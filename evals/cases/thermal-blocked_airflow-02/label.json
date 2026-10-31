@@ -1,0 +1,17 @@
+{
+  "case": "thermal-blocked_airflow-02",
+  "generator": "bundlegen/1",
+  "seed": 101002,
+  "device_id": "site-b-00027",
+  "site_id": "site-b",
+  "model": "network-switch-n3",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "blocked_airflow",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "5bf89d383438612d908bb23cf4ec8bb6",
+  "bundle_bytes": 19108
+}

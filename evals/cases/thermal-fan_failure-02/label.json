@@ -1,0 +1,17 @@
+{
+  "case": "thermal-fan_failure-02",
+  "generator": "bundlegen/1",
+  "seed": 100002,
+  "device_id": "site-a-00155",
+  "site_id": "site-a",
+  "model": "storage-node-s2",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "fan_failure",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "81382831763e0746ef69726d6e4cea94",
+  "bundle_bytes": 19061
+}

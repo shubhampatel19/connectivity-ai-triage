@@ -1,0 +1,33 @@
+[
+  {
+    "alert_id": "6a3efc68cfaa61c4d5655fc6831fb3d9",
+    "device_id": "site-b-00061",
+    "site_id": "site-b",
+    "code": "storage.reallocated_sectors",
+    "severity": "warning",
+    "value": 8,
+    "message": "disk0 reallocated sector count rose to 8",
+    "observed_at": "2026-10-01T15:56:37Z",
+    "bundle_id": "310c11762101631ee9b90e460fc56bb8"
+  },
+  {
+    "alert_id": "fc788cb103038847c2d39f57f2f6e49b",
+    "device_id": "site-b-00061",
+    "site_id": "site-b",
+    "code": "storage.reallocated_sectors",
+    "severity": "warning",
+    "value": 11,
+    "message": "disk0 reallocated sector count rose to 11",
+    "observed_at": "2026-10-01T15:57:47Z"
+  },
+  {
+    "alert_id": "16b3c421259ff259c2fe7dfb14264164",
+    "device_id": "site-b-00061",
+    "site_id": "site-b",
+    "code": "storage.reallocated_sectors",
+    "severity": "warning",
+    "value": 12,
+    "message": "disk0 reallocated sector count rose to 12",
+    "observed_at": "2026-10-01T15:58:12Z"
+  }
+]

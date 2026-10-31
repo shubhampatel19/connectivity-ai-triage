@@ -1,0 +1,17 @@
+{
+  "case": "thermal-fan_failure-04",
+  "generator": "bundlegen/1",
+  "seed": 100004,
+  "device_id": "site-a-00008",
+  "site_id": "site-a",
+  "model": "edge-server-e1",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "fan_failure",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "6d485eaf6d95730ba9342999f1f64006",
+  "bundle_bytes": 19059
+}

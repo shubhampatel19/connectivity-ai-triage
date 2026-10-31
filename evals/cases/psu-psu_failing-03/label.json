@@ -1,0 +1,17 @@
+{
+  "case": "psu-psu_failing-03",
+  "generator": "bundlegen/1",
+  "seed": 103003,
+  "device_id": "site-a-00010",
+  "site_id": "site-a",
+  "model": "storage-node-s2",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "psu_failing",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 2,
+  "bundle_id": "bd85e1e9c8248a0bac3532c99f3a0e8f",
+  "bundle_bytes": 18953
+}

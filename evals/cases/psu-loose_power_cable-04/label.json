@@ -1,0 +1,17 @@
+{
+  "case": "psu-loose_power_cable-04",
+  "generator": "bundlegen/1",
+  "seed": 105004,
+  "device_id": "site-a-00006",
+  "site_id": "site-a",
+  "model": "network-switch-n3",
+  "firmware": "2.4.1",
+  "fault": "psu",
+  "cause": "loose_power_cable",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 5,
+  "bundle_id": "970b879b2c25f67f9b38c3231d0a05e6",
+  "bundle_bytes": 18977
+}

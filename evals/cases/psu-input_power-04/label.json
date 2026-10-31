@@ -1,0 +1,17 @@
+{
+  "case": "psu-input_power-04",
+  "generator": "bundlegen/1",
+  "seed": 104004,
+  "device_id": "site-a-00099",
+  "site_id": "site-a",
+  "model": "storage-node-s2",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "input_power",
+  "site_wide": true,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 4,
+  "bundle_id": "6fde75cdf3075efc7bff30cebbe0bcd5",
+  "bundle_bytes": 18917
+}

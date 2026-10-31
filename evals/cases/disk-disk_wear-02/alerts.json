@@ -1,0 +1,13 @@
+[
+  {
+    "alert_id": "ba506ae22004eaed8fb7be91bc7bf83c",
+    "device_id": "site-b-00084",
+    "site_id": "site-b",
+    "code": "storage.reallocated_sectors",
+    "severity": "warning",
+    "value": 5,
+    "message": "disk0 reallocated sector count rose to 5",
+    "observed_at": "2026-10-01T23:27:28Z",
+    "bundle_id": "d3b43ad94ab25a7c66aa7e57885d7b1b"
+  }
+]

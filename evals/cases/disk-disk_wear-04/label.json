@@ -1,0 +1,17 @@
+{
+  "case": "disk-disk_wear-04",
+  "generator": "bundlegen/1",
+  "seed": 106004,
+  "device_id": "site-a-00033",
+  "site_id": "site-a",
+  "model": "storage-node-s2",
+  "firmware": "2.5.0",
+  "fault": "disk",
+  "cause": "disk_wear",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "storage.reallocated_sectors",
+  "alerts": 1,
+  "bundle_id": "db4a7ccc7ad0f807043611878f915854",
+  "bundle_bytes": 18960
+}

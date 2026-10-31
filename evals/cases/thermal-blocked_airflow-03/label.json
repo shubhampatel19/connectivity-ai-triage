@@ -1,0 +1,17 @@
+{
+  "case": "thermal-blocked_airflow-03",
+  "generator": "bundlegen/1",
+  "seed": 101003,
+  "device_id": "site-a-00088",
+  "site_id": "site-a",
+  "model": "edge-server-e1",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "blocked_airflow",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "a1dfdcadd4c0772b6bbace23f15f41b1",
+  "bundle_bytes": 19046
+}

@@ -1,0 +1,17 @@
+{
+  "case": "thermal-high_ambient-01",
+  "generator": "bundlegen/1",
+  "seed": 102001,
+  "device_id": "site-b-00013",
+  "site_id": "site-b",
+  "model": "storage-node-s2",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "high_ambient",
+  "site_wide": true,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "76a2f60dabaeec47224d65d9d400a00e",
+  "bundle_bytes": 19129
+}

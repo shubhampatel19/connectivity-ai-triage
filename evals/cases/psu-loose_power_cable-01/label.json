@@ -1,0 +1,17 @@
+{
+  "case": "psu-loose_power_cable-01",
+  "generator": "bundlegen/1",
+  "seed": 105001,
+  "device_id": "site-b-00109",
+  "site_id": "site-b",
+  "model": "storage-node-s2",
+  "firmware": "2.5.0",
+  "fault": "psu",
+  "cause": "loose_power_cable",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "power.rail_out_of_range",
+  "alerts": 5,
+  "bundle_id": "48df7421ccfd0d2d35fd0f99c4ccf64d",
+  "bundle_bytes": 18771
+}

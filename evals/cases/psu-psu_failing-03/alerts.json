@@ -1,0 +1,23 @@
+[
+  {
+    "alert_id": "a3608b8afe3a69438737fe7fa368f665",
+    "device_id": "site-a-00010",
+    "site_id": "site-a",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.722,
+    "message": "PSU1 12V rail at 11.722V, outside +/-0.20V",
+    "observed_at": "2026-10-01T20:29:20Z",
+    "bundle_id": "bd85e1e9c8248a0bac3532c99f3a0e8f"
+  },
+  {
+    "alert_id": "e293ecb4f1d190b1d2386594e207e6f5",
+    "device_id": "site-a-00010",
+    "site_id": "site-a",
+    "code": "power.rail_out_of_range",
+    "severity": "warning",
+    "value": 11.787,
+    "message": "PSU1 12V rail at 11.787V, outside +/-0.20V",
+    "observed_at": "2026-10-01T20:30:00Z"
+  }
+]

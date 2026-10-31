@@ -1,0 +1,154 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  UV_VERSION: "0.13.1"
+
+# Every job that needs Postgres uses pgvector/pgvector:0.8.0-pg16, Postgres 16
+# with the pgvector extension: the image the platform runs. (A service image
+# can't come from env, so it's spelled out in each job.)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16
+        env:
+          POSTGRES_PASSWORD: triage
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      TRIAGE_TEST_DATABASE_URL: postgresql://postgres:triage@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: ${{ env.UV_VERSION }}
+      - name: Install
+        run: uv sync --frozen
+      - name: uv.lock matches pyproject.toml
+        run: uv lock --check
+      - name: Lint and format
+        run: |
+          uv run ruff check
+          uv run ruff format --check
+      - name: Test against Postgres
+        run: |
+          set -o pipefail
+          uv run pytest -q -rs 2>&1 | tee /tmp/test.log
+          # A wrong database URL would skip the integration tests and still
+          # pass. Skipped tests fail the build here.
+          if grep -q SKIPPED /tmp/test.log; then
+            echo "::error::tests were skipped: $(grep SKIPPED /tmp/test.log | tr '\n' ' ')"
+            exit 1
+          fi
+
+  # The whole labelled set through the real pipeline and the real embedder,
+  # with the fake model: a regression test for evidence selection, retrieval,
+  # the prompt and the grounding checks. The report lands in the job summary.
+  evals:
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16
+        env:
+          POSTGRES_PASSWORD: triage
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      DATABASE_URL: postgresql://postgres:triage@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: ${{ env.UV_VERSION }}
+      - run: uv sync --frozen --no-dev
+      - name: Evals (fake model, fastembed)
+        run: uv run python -m triage eval --provider fake --embedder fastembed
+
+  # The same evals against Claude. They cost real money (cents a run), so they
+  # run on pushes to main and on demand, and only when the repo has an
+  # ANTHROPIC_API_KEY secret; forks and PRs never see it.
+  evals-claude:
+    needs: test
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: evals-claude
+      cancel-in-progress: false
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16
+        env:
+          POSTGRES_PASSWORD: triage
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      DATABASE_URL: postgresql://postgres:triage@localhost:5432/postgres
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      EVAL_BUDGET_USD: "1"
+    steps:
+      - name: Skip without an API key
+        id: key
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::notice title=evals-claude::skipped: add an ANTHROPIC_API_KEY repository secret to run the evals against Claude"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v5
+        if: steps.key.outputs.run == 'true'
+      - uses: astral-sh/setup-uv@v7
+        if: steps.key.outputs.run == 'true'
+        with:
+          version: ${{ env.UV_VERSION }}
+      - if: steps.key.outputs.run == 'true'
+        run: uv sync --frozen --no-dev
+      - name: Evals (Claude, fastembed)
+        if: steps.key.outputs.run == 'true'
+        run: uv run python -m triage eval --provider anthropic --embedder fastembed --concurrency 4
+
+  # Builds the image and runs the evals inside it, the way the cluster runs it:
+  # read-only root filesystem, writable /tmp only. Proves the package
+  # installed from the wheel finds its migrations, and the baked-in model
+  # loads with Hugging Face access switched off and nowhere to write.
+  image:
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16
+        env:
+          POSTGRES_PASSWORD: triage
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build image
+        run: docker build -t ai-triage:ci .
+      - name: Evals inside the image
+        run: |
+          docker run --rm --network host --read-only --tmpfs /tmp \
+            -e DATABASE_URL=postgresql://postgres:triage@localhost:5432/postgres \
+            ai-triage:ci eval --provider fake --embedder fastembed --no-variants
+      - name: Image size
+        run: docker image ls ai-triage:ci --format '{{.Size}}' | xargs -I{} echo "::notice title=image::ai-triage image is {}"

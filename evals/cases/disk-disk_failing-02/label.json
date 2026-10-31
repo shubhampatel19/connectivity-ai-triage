@@ -1,0 +1,17 @@
+{
+  "case": "disk-disk_failing-02",
+  "generator": "bundlegen/1",
+  "seed": 107002,
+  "device_id": "site-b-00061",
+  "site_id": "site-b",
+  "model": "edge-server-e1",
+  "firmware": "2.5.0",
+  "fault": "disk",
+  "cause": "disk_failing",
+  "site_wide": false,
+  "prompt_injection": false,
+  "alert_code": "storage.reallocated_sectors",
+  "alerts": 3,
+  "bundle_id": "310c11762101631ee9b90e460fc56bb8",
+  "bundle_bytes": 19069
+}

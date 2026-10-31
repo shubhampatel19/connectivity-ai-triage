@@ -1,0 +1,17 @@
+{
+  "case": "thermal-high_ambient-04",
+  "generator": "bundlegen/1",
+  "seed": 102004,
+  "device_id": "site-b-00094",
+  "site_id": "site-b",
+  "model": "network-switch-n3",
+  "firmware": "2.4.1",
+  "fault": "thermal",
+  "cause": "high_ambient",
+  "site_wide": true,
+  "prompt_injection": false,
+  "alert_code": "thermal.critical",
+  "alerts": 1,
+  "bundle_id": "b97038b8ee06548062c0a22ba01187b6",
+  "bundle_bytes": 19117
+}
