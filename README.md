@@ -6,9 +6,11 @@ Part of [Connectivity](https://github.com/shubhampatel19/connectivity-platform),
 
 Python 3.12, FastAPI, Postgres with pgvector, and Claude through the Anthropic API (or a local model through Ollama, or a deterministic fake).
 
+See [docs/DESIGN.md](docs/DESIGN.md) for how the code is put together and why.
+
 ## How a case is triaged
 
-Every `POLL_INTERVAL`, the worker lists open cases from the case service's API and picks the ones that need a note: logs attached, or logs `none` (no bundle is coming, so the alerts are all there is). For each, under a lease in Postgres so no two replicas pay for the same case:
+Every `POLL_INTERVAL`, the worker lists every open case from the case service's API (paging by case ID, so there is no limit on how many) and picks the ones that need a note: logs attached, or logs `none` (no bundle is coming, so the alerts are all there is). For each, under a lease in Postgres so no two replicas pay for the same case:
 
 1. **Fetch** the case and its log bundles (the newest per device, up to `MAX_BUNDLES_PER_CASE`) from the object store.
 2. **Pick the evidence.** A bundle is read in memory with size limits (a 64 KB gzip can expand to gigabytes), never extracted to disk. Runs of near-identical lines collapse to their first and last. The rest are ranked (errors and warnings first, then anything within 5 minutes of an alert, then the most recent) and packed into `EVIDENCE_TOKEN_BUDGET`. A 3 MB log storm costs the same as a 30-line log.
